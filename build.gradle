@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+def junitVersion = "5.8.2",
+    selenideVersion = "6.3.5",
+    restAssuredVersion = "5.1.0"
+
+dependencies {
+    testImplementation (
+//            "com.codeborne:selenide:$selenideVersion",
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+//            'org.seleniumhq.selenium:selenium-java:4.1.4',
+//            'io.github.bonigarcia:webdrivermanager:5.1.1',                //automated driver management, fixes incompatibilities of Chrome and chromedriver
+//            "org.aeonbits.owner:owner:1.0.12",
+//            "org.assertj:assertj-core:3.22.0",
+//            "com.google.code.gson:gson:2.9.0"                             //parse JSONs
+            "io.rest-assured:rest-assured:$restAssuredVersion",              //REST testing framework,
+//            "com.github.javafaker:javafaker:$javafakerVersion",           //https://github.com/DiUS/java-faker
+//            "org.slf4j:slf4j-simple:$slf4jVersion",                       //logger
+//            "io.qameta.allure:allure-selenide:$allureSelenideVersion",    //selenide listener
+            "io.rest-assured:json-schema-validator:5.1.0",                   //JSON Schema Validator for Rest Assured
+            "commons-validator:commons-validator:1.7"                        //validate if string contains a valid date
+    )
+}
+
+
+test {
+    useJUnitPlatform()
+}
