@@ -1,19 +1,15 @@
 package tests;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import org.apache.commons.validator.GenericValidator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
@@ -41,7 +37,6 @@ public class ReqresinTests {
                 .then()
                 .log().all()
                 .statusCode(200)
-                //.body("token", is("QpwL5tke4Pnpja7X4"));
                 .body("token", notNullValue());
     }
 
@@ -59,7 +54,8 @@ public class ReqresinTests {
                 .log().status()
                 .log().body()
                 .statusCode(400)
-                .body("error", is("Missing password"));
+                .body("error", is("Missing password"))
+        ;
     }
 
     @Test
@@ -97,7 +93,7 @@ public class ReqresinTests {
         final String userName = "morpheus";
         final String userJob = "leader";
 
-        String createUserReqBody = "{ \"name\": \""+userName+"\", \"job\": \""+userJob+"\" }";
+        String createUserReqBody = "{ \"name\": \"" + userName + "\", \"job\": \"" + userJob + "\" }";
         /* SHOULD RETURN
         {
             "name": "morpheus",
@@ -157,7 +153,7 @@ public class ReqresinTests {
                 .log().body()
                 .statusCode(200)
                 .body(notNullValue())
-                ;
+        ;
     }
 
     @Test
@@ -204,13 +200,14 @@ public class ReqresinTests {
                 .body(createUserReqBody)
                 .contentType(JSON)
                 .when()
-                .patch("/api/users/"+userNumber)
+                .patch("/api/users/" + userNumber)
                 .then()
                 .log().status()
                 .log().body()
                 .statusCode(200)
                 .body("name", is(userName))
-                .body("job", is(userJob));
+                .body("job", is(userJob))
+        ;
 
     }
 }
