@@ -1,5 +1,6 @@
 plugins {
-    id 'java'
+    id 'java-library'  //more lightweight than java
+    id 'io.qameta.allure' version "2.9.6"  //allure
 }
 
 group 'org.example'
@@ -11,24 +12,42 @@ repositories {
 
 
 def junitVersion = "5.8.2",
-    selenideVersion = "6.3.5",
-    restAssuredVersion = "5.1.0"
+    selenideVersion = "6.4.0",
+    restAssuredVersion = "5.1.0",
+    allureVersion = "2.18.1",
+    slf4jVersion = "1.7.36";
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
 
 dependencies {
     testImplementation (
-//            "com.codeborne:selenide:$selenideVersion",
             "org.junit.jupiter:junit-jupiter:$junitVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "io.qameta.allure:allure-selenide:$allureVersion",              //selenide listener
+            "io.rest-assured:rest-assured:$restAssuredVersion",             //REST testing framework,
+            "io.qameta.allure:allure-rest-assured:$allureVersion",           //rest assured listener
 //            'org.seleniumhq.selenium:selenium-java:4.1.4',
 //            'io.github.bonigarcia:webdrivermanager:5.1.1',                //automated driver management, fixes incompatibilities of Chrome and chromedriver
 //            "org.aeonbits.owner:owner:1.0.12",
 //            "org.assertj:assertj-core:3.22.0",
 //            "com.google.code.gson:gson:2.9.0"                             //parse JSONs
-            "io.rest-assured:rest-assured:$restAssuredVersion",              //REST testing framework,
+            "io.qameta.allure:allure-selenide:$allureVersion",              //selenide listener
 //            "com.github.javafaker:javafaker:$javafakerVersion",           //https://github.com/DiUS/java-faker
-//            "org.slf4j:slf4j-simple:$slf4jVersion",                       //logger
-//            "io.qameta.allure:allure-selenide:$allureSelenideVersion",    //selenide listener
-            "io.rest-assured:json-schema-validator:5.1.0",                   //JSON Schema Validator for Rest Assured
-            "commons-validator:commons-validator:1.7"                        //validate if string contains a valid date
+            "org.slf4j:slf4j-simple:$slf4jVersion",                         //logger
+            "io.rest-assured:json-schema-validator:5.1.0",                  //JSON Schema Validator for Rest Assured
+            "commons-validator:commons-validator:1.7"                       //validate if string contains a valid date
     )
 }
 
