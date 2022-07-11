@@ -19,7 +19,6 @@ import static helpers.CustomApiListener.withCustomTemplates;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 
-
 public class DemowebshopTests {
 
     //static String login = "qaguru@qa.guru",
