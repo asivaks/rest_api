@@ -40,7 +40,7 @@ dependencies {
             "io.qameta.allure:allure-rest-assured:$allureVersion",           //rest assured listener
 //            'org.seleniumhq.selenium:selenium-java:4.1.4',
 //            'io.github.bonigarcia:webdrivermanager:5.1.1',                //automated driver management, fixes incompatibilities of Chrome and chromedriver
-//            "org.aeonbits.owner:owner:1.0.12",
+            "org.aeonbits.owner:owner:1.0.12",                              //properties based configuration
 //            "org.assertj:assertj-core:3.22.0",
 //            "com.google.code.gson:gson:2.9.0"                             //parse JSONs
             "io.qameta.allure:allure-selenide:$allureVersion",              //selenide listener
@@ -52,6 +52,25 @@ dependencies {
 }
 
 
-test {
-    useJUnitPlatform()
+tasks.withType(Test) {
+    systemProperties(System.getProperties()) //get parameters from console
+    useJUnitPlatform{
+        //excludeTags "sysProp"
+        //excludeTags "owner"
+    }
+
+    //add detailed info about passed & failed tests
+    testLogging {
+        showStandardStreams = true  //turn on gradle console output
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+task demowebshop(type: Test) {
+    useJUnitPlatform {
+        includeTags 'demowebshop'
+    }
 }

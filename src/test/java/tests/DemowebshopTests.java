@@ -22,20 +22,28 @@ import static io.restassured.RestAssured.given;
 
 public class DemowebshopTests {
 
-    static String login = "qaguru@qa.guru",
-                  password = "qaguru@qa.guru1",
-                  authCookieName = "NOPCOMMERCE.AUTH";
+    //static String login = "qaguru@qa.guru",
+    //              password = "qaguru@qa.guru1",
+    //              authCookieName = "NOPCOMMERCE.AUTH";
+
+    static String login = System.getProperty("login", "qaguru@qa.guru");
+    static String password = System.getProperty("password", "qaguru@qa.guru1");
+    static String authCookieName = System.getProperty("authCookieName", "NOPCOMMERCE.AUTH");
+    static String uiBaseUrl = System.getProperty("authCookieName", "http://demowebshop.tricentis.com");
+    static String apiBaseUri = System.getProperty("authCookieName", "http://demowebshop.tricentis.com");
+    static String browserName = System.getProperty("browserName");
+    static String browserVersion = System.getProperty("browserVersion");
 
     @BeforeAll
     @Description("ass listener, set base URLs")
     static void beforeAll() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        Configuration.baseUrl = "http://demowebshop.tricentis.com";
-        RestAssured.baseURI = "http://demowebshop.tricentis.com";
+        Configuration.baseUrl = uiBaseUrl;
+        RestAssured.baseURI = apiBaseUri;
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browserName", "chrome");
-        capabilities.setCapability("browserVersion", "100.0");
+        capabilities.setCapability("browserName", browserName);
+        capabilities.setCapability("browserVersion", browserVersion);
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
@@ -45,10 +53,10 @@ public class DemowebshopTests {
     @AfterEach
     @Description("attachments + it is stated that WebDriver in Selenide is closed after each test but sometimes this doesn't happen")
     void afterEach() {
-        //Attach.screenshotAs("Test screenshot");
+        Attach.screenshotAs("Test screenshot");
         Attach.pageSource();
-        //Attach.browserConsoleLogs();
-        //Attach.addVideo();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
         closeWebDriver();
     }
 
