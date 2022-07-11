@@ -41,11 +41,14 @@ public class DemowebshopTests {
         RestAssured.baseURI = apiBaseUri;
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browserName", browserName);
-        capabilities.setCapability("browserVersion", browserVersion);
+        capabilities.setCapability("browser", browserName);
+        capabilities.setCapability("version", browserVersion);
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
+        System.out.println("capabilities= " + capabilities.asMap());
+        System.out.println(capabilities.getBrowserName());
+        System.out.println(capabilities.getBrowserVersion());
     }
 
     //it is stated that WebDriver in Selenide is closed after each test but sometimes this doesn't happen
