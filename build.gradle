@@ -3,6 +3,19 @@ plugins {
     id 'io.qameta.allure' version "2.9.6"  //allure
 }
 
+
+//plugins {
+//    id "io.freefair.aspectj" version "6.5.0.2"
+//}
+
+//doesn't work
+//java.util.ServiceConfigurationError: sun.util.locale.provider.LocaleDataMetaInfo: Unable to load sun.util.resources.cldr.provider.CLDRLocaleDataMetaInfo
+//java {
+//    toolchain {
+//        languageVersion.set(JavaLanguageVersion.of(16))
+//    }
+//}
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 
