@@ -3,27 +3,12 @@ plugins {
     id 'io.qameta.allure' version "2.9.6"  //allure
 }
 
-
-//plugins {
-//    id "io.freefair.aspectj" version "6.5.0.2"
-//}
-
-//doesn't work
-//java.util.ServiceConfigurationError: sun.util.locale.provider.LocaleDataMetaInfo: Unable to load sun.util.resources.cldr.provider.CLDRLocaleDataMetaInfo
-//java {
-//    toolchain {
-//        languageVersion.set(JavaLanguageVersion.of(16))
-//    }
-//}
-
-
 group 'org.example'
 version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
-
 
 def junitVersion = "5.8.2",
     selenideVersion = "6.4.0",
@@ -56,14 +41,14 @@ dependencies {
 //            'org.seleniumhq.selenium:selenium-java:4.1.4',
 //            'io.github.bonigarcia:webdrivermanager:5.1.1',                //automated driver management, fixes incompatibilities of Chrome and chromedriver
             "org.aeonbits.owner:owner:1.0.12",                              //properties based configuration
-//            "org.assertj:assertj-core:3.22.0",
+//            "org.assertj:assertj-core:3.22.0",                              //assertions https://assertj.github.io/doc/
 //            "com.google.code.gson:gson:2.9.0"                             //parse JSONs
             "io.qameta.allure:allure-selenide:$allureVersion",              //selenide listener
 //            "com.github.javafaker:javafaker:$javafakerVersion",           //https://github.com/DiUS/java-faker
             "org.slf4j:slf4j-simple:$slf4jVersion",                         //logger
             "io.rest-assured:json-schema-validator:5.1.0",                  //JSON Schema Validator for Rest Assured
             "commons-validator:commons-validator:1.7",                      //validate if string contains a valid date
-            "org.aspectj:aspectjweaver:$aspectjweaverVersion"               //WTF
+            "org.aspectj:aspectjweaver:$aspectjweaverVersion"               //gives allure attachments compatibility with Java 17
     )
 }
 

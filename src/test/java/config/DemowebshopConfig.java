@@ -3,7 +3,8 @@ package config;
 import org.aeonbits.owner.Config;
 
 @Config.Sources({
-        "classpath:app.properties"
+        "classpath:config/demowebshop/credentials.properties"  //path from source root
+        //NB in Jenkins path from repository root
 })
 
 public interface DemowebshopConfig extends Config {
@@ -18,5 +19,9 @@ public interface DemowebshopConfig extends Config {
 
     @Key("userPassword")
     String userPassword();
+
+    @Key("authCookieName")
+    @DefaultValue("NOPCOMMERCE.AUTH")
+    String authCookieName();
 
 }

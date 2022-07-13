@@ -3,11 +3,13 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import config.DemowebshopConfig;
 import helpers.Attach;
 import io.qameta.allure.*;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -25,24 +27,38 @@ public class DemowebshopTests {
     //              password = "qaguru@qa.guru1",
     //              authCookieName = "NOPCOMMERCE.AUTH";
 
-    static String login = System.getProperty("login", "qaguru@qa.guru");
-    static String password = System.getProperty("password", "qaguru@qa.guru1");
-    static String authCookieName = System.getProperty("authCookieName", "NOPCOMMERCE.AUTH");
-    static String uiBaseUrl = System.getProperty("authCookieName", "http://demowebshop.tricentis.com");
-    static String apiBaseUri = System.getProperty("authCookieName", "http://demowebshop.tricentis.com");
+
+    //get these with owner library
+    //static String login = System.getProperty("login", "qaguru@qa.guru");
+    //static String password = System.getProperty("password", "qaguru@qa.guru1");
+    //static String authCookieName = System.getProperty("authCookieName", "NOPCOMMERCE.AUTH");
+    //static String uiBaseUrl = System.getProperty("authCookieName", "http://demowebshop.tricentis.com");
+    //static String apiBaseUri = System.getProperty("authCookieName", "http://demowebshop.tricentis.com");
     static String browserName = System.getProperty("browserName");
     static String browserVersion = System.getProperty("browserVersion");
+
+    static DemowebshopConfig config = ConfigFactory.create(DemowebshopConfig.class, System.getProperties());
+
+    String login = config.userLogin();
+    String password = config.userPassword();
+    String authCookieName = config.authCookieName();
 
     @BeforeAll
     @Description("ass listener, set base URLs")
     static void beforeAll() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        Configuration.baseUrl = uiBaseUrl;
-        RestAssured.baseURI = apiBaseUri;
+
+        //Configuration.baseUrl = uiBaseUrl;
+        //RestAssured.baseURI = apiBaseUri;
+
+        Configuration.baseUrl = config.webUrl();
+        Configuration.browser = browserName;
+        Configuration.browserVersion = browserVersion;
+        RestAssured.baseURI = config.apiUrl();
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browser", browserName);
-        capabilities.setCapability("version", browserVersion);
+        //capabilities.setCapability("browser", browserName);
+        //capabilities.setCapability("version", browserVersion);
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
