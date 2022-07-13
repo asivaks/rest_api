@@ -3,6 +3,7 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import config.CredentialsConfig;
 import config.DemowebshopConfig;
 import helpers.Attach;
 import io.qameta.allure.*;
@@ -63,7 +64,12 @@ public class DemowebshopTests {
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
         System.out.println("capabilities= " + capabilities.asMap());
-        System.out.println("Will login to " + Configuration.baseUrl + " with user" + login + " password " + password);
+        System.out.println("Will login to " + Configuration.baseUrl + " with user" + login + " & password " + password);
+
+        CredentialsConfig credentialsConfig = ConfigFactory.create(CredentialsConfig.class);
+        String remoteString = "https://" + credentialsConfig.remoteUser() + ":" + credentialsConfig.remotePassword() + "@" + credentialsConfig.remoteUrl();
+        System.out.println("Connecting to " + remoteString);
+        Configuration.remote = remoteString;
 
     }
 
