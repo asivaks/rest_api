@@ -39,9 +39,9 @@ public class DemowebshopTests {
 
     static DemowebshopConfig config = ConfigFactory.create(DemowebshopConfig.class, System.getProperties());
 
-    String login = config.userLogin();
-    String password = config.userPassword();
-    String authCookieName = config.authCookieName();
+    static String login = config.userLogin();
+    static String password = config.userPassword();
+    static String authCookieName = config.authCookieName();
 
     @BeforeAll
     @Description("ass listener, set base URLs")
@@ -63,8 +63,8 @@ public class DemowebshopTests {
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
         System.out.println("capabilities= " + capabilities.asMap());
-        System.out.println(capabilities.getBrowserName());
-        System.out.println(capabilities.getBrowserVersion());
+        System.out.println("Will login to " + Configuration.baseUrl + " with user" + login + " password " + password);
+
     }
 
     //it is stated that WebDriver in Selenide is closed after each test but sometimes this doesn't happen
