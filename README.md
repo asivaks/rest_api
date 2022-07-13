@@ -1,6 +1,3 @@
 # rest_api
-gradle clean android -Dhost=browserstack
+gradle clean demowebshop -DbrowserName=CHROME
 
-gradle clean android -Dhost=emulator
-
-gradle clean android -Dhost=GalaxyA51
