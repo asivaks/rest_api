@@ -2,6 +2,8 @@ package tests;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import models.LombokUser;
+import models.LombokUserData;
 import org.apache.commons.validator.GenericValidator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -97,9 +99,9 @@ public class ReqresinTests {
         /* SHOULD RETURN
         {
             "name": "morpheus",
-                "job": "leader",
-                "id": "313",
-                "createdAt": "2022-06-08T21:11:31.710Z"
+            "job": "leader",
+            "id": "313",
+            "createdAt": "2022-06-08T21:11:31.710Z"
         }
         */
 

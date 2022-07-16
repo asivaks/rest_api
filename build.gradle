@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'  //more lightweight than java
     id 'io.qameta.allure' version "2.9.6"  //allure
+    id "io.freefair.lombok" version "6.0.0-m2" //handles models without getters & setters
 }
 
 group 'org.example'
